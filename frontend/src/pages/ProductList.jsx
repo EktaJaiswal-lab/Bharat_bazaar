@@ -16,7 +16,7 @@ export default function ProductList() {
       setLoading(true);
       try {
         const query = searchParams.get('q');
-        let url = 'http://localhost:8000/products/';
+        let url = 'http://localhost:8000/products/?limit=100';
         if (query) {
           url = `http://localhost:8000/products/search/?q=${query}`;
         }
