@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
-import axios from 'axios';
+import { api } from '../config/api';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8000/chat/', {
+      const response = await api.post('/chat/', {
         message: userMessage,
         history: history
       });

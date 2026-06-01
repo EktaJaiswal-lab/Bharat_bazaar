@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ShoppingCart, Star, Sparkles, Heart } from 'lucide-react';
-import axios from 'axios';
+import { api } from '../config/api';
 import { useCart } from '../context/CartContext';
 
 export default function ProductDetail() {
@@ -18,8 +18,8 @@ export default function ProductDetail() {
       setLoading(true);
       try {
         const [productRes, recsRes] = await Promise.all([
-          axios.get(`http://localhost:8000/products/${id}`),
-          axios.get(`http://localhost:8000/products/${id}/similar`)
+          api.get(`/products/${id}`),
+          api.get(`/products/${id}/similar`)
         ]);
         setProduct(productRes.data);
         setRecommendations(recsRes.data);

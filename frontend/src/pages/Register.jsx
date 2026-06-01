@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
@@ -20,7 +20,7 @@ export default function Register() {
 
     try {
       // 1. Register the user
-      await axios.post('http://localhost:8000/auth/signup', {
+      await api.post('/auth/signup', {
         name,
         email,
         password
@@ -31,7 +31,7 @@ export default function Register() {
       formData.append('username', email);
       formData.append('password', password);
 
-      const loginRes = await axios.post('http://localhost:8000/auth/login', formData, {
+      const loginRes = await api.post('/auth/login', formData, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
 

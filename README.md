@@ -166,6 +166,34 @@ App URL: **http://localhost:5173**
 
 ---
 
+## Deployment (Render)
+
+### Frontend (Static Site)
+
+| Setting | Value |
+|---------|-------|
+| Root Directory | `frontend` |
+| Build Command | `npm install && npm run build` |
+| Publish Directory | `dist` |
+
+Optional environment variable:
+
+```
+VITE_API_URL=https://bharat-bazaar-vcva.onrender.com
+```
+
+Production builds use this URL by default if `VITE_API_URL` is not set.
+
+### Backend (Web Service)
+
+After deploying the frontend, ensure CORS includes your Render frontend URL (e.g. `https://bharat-bazaar-frontend.onrender.com`) in `backend/main.py`.
+
+**Live URLs:**
+- Frontend: https://bharat-bazaar-frontend.onrender.com
+- Backend: https://bharat-bazaar-vcva.onrender.com
+
+---
+
 ## Notes
 
 - First backend startup may take 1–2 minutes while ML libraries load and the recommendation engine trains.

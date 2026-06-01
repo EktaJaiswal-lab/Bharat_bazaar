@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../config/api';
 import { PackagePlus, Image as ImageIcon } from 'lucide-react';
 
 export default function AddProduct() {
@@ -42,7 +42,7 @@ export default function AddProduct() {
         rating: 0.0 // Default rating
       };
 
-      await axios.post('http://localhost:8000/products/', productPayload);
+      await api.post('/products/', productPayload);
       navigate('/dashboard'); // Go back to dashboard on success
     } catch (err) {
       console.error(err);

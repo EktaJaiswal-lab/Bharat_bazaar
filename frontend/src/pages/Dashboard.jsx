@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Activity, Users, DollarSign, TrendingUp } from 'lucide-react';
-import axios from 'axios';
+import { api } from '../config/api';
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -13,7 +13,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/analytics/dashboard');
+        const res = await api.get('/analytics/dashboard');
         setData(res.data);
       } catch (err) {
         console.error("Error fetching analytics", err);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Search, ShoppingCart } from 'lucide-react';
-import axios from 'axios';
+import { api } from '../config/api';
 import { useCart } from '../context/CartContext';
 
 export default function ProductList() {
@@ -16,11 +16,11 @@ export default function ProductList() {
       setLoading(true);
       try {
         const query = searchParams.get('q');
-        let url = 'http://localhost:8000/products/?limit=100';
+        let url = '/products/?limit=100';
         if (query) {
-          url = `http://localhost:8000/products/search/?q=${query}`;
+          url = `/products/search/?q=${encodeURIComponent(query)}`;
         }
-        const response = await axios.get(url);
+        const response = await api.get(url);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

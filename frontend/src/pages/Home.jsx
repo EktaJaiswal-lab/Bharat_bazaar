@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, ShoppingCart } from 'lucide-react';
-import axios from 'axios';
+import { api } from '../config/api';
 import { useCart } from '../context/CartContext';
 
 export default function Home() {
@@ -14,19 +14,19 @@ export default function Home() {
       try {
         const mockUserId = localStorage.getItem('user_id') || 'test-user-1';
         // Use the new personalized hybrid endpoint
-        const res = await axios.get(`http://localhost:8000/products/recommendations/personalized?user_id=${mockUserId}&limit=3`);
+        const res = await api.get(`/products/recommendations/personalized?user_id=${mockUserId}&limit=3`);
         
         // If it returns nothing (e.g. error fallback), fetch standard
         if (res.data && res.data.length > 0) {
           setFeaturedProducts(res.data);
         } else {
-          const fallbackRes = await axios.get('http://localhost:8000/products/?limit=3');
+          const fallbackRes = await api.get('/products/?limit=3');
           setFeaturedProducts(fallbackRes.data);
         }
       } catch (err) {
         console.error("Error fetching featured products", err);
         // Fallback
-        const fallbackRes = await axios.get('http://localhost:8000/products/?limit=3').catch(e => null);
+        const fallbackRes = await api.get('/products/?limit=3').catch(e => null);
         if (fallbackRes) setFeaturedProducts(fallbackRes.data);
       } finally {
         setLoading(false);
