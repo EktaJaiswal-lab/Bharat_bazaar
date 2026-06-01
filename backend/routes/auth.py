@@ -47,7 +47,7 @@ async def signup(user: UserCreate, db = Depends(get_database)):
     )
     
     await db["users"].insert_one(new_user.dict(by_alias=True))
-    return new_user
+    return new_user.dict(by_alias=True)
 
 @router.post("/login", response_model=Token)
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db = Depends(get_database)):

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -94,6 +94,13 @@ export default function Register() {
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
+
+        <p className="text-center text-gray-400 text-sm mt-6">
+          Already have an account?{' '}
+          <Link to="/login" className="text-brand-cyan hover:underline font-semibold transition-colors">
+            Sign in here
+          </Link>
+        </p>
       </div>
     </div>
   );

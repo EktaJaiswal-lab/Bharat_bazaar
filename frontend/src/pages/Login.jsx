@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -75,6 +75,13 @@ export default function Login() {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
+
+        <p className="text-center text-gray-400 text-sm mt-6">
+          Don't have an account?{' '}
+          <Link to="/register" className="text-brand-cyan hover:underline font-semibold transition-colors">
+            Register here
+          </Link>
+        </p>
       </div>
     </div>
   );

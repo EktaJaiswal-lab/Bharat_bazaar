@@ -36,9 +36,15 @@ async def create_product(product: ProductCreate, db = Depends(get_database)):
 async def search_products(q: str = Query(..., min_length=1), db = Depends(get_database)):
     results = recommendation_engine.smart_search(q, num_results=10)
     if not results:
-        query = {"title": {"$regex": q, "$options": "i"}}
-        cursor = db["products"].find(query).limit(10)
-        results = await cursor.to_list(length=10)
+        query = {
+            "$or": [
+                {"title": {"$regex": q, "$options": "i"}},
+                {"category": {"$regex": q, "$options": "i"}},
+                {"tags": {"$regex": q, "$options": "i"}}
+            ]
+        }
+        cursor = db["products"].find(query).limit(20)
+        results = await cursor.to_list(length=20)
     return results
 
 @router.get("/{product_id}/similar", response_model=List[ProductOut])
